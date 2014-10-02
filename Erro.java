@@ -1,6 +1,6 @@
 class Erro{
 	
-	public Erro(int e, int linha){
+	public static void erro(int e, int linha){
 		System.out.println("Na linha: " + (linha+1));
 	
 
