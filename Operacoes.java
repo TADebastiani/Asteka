@@ -1,24 +1,23 @@
 class Operacoes{
 	
 
-	public void verificaOperador(String linha, String [] guardaVar, double [] guardaValores, int linhasGuardaVar){
+	 public void Operacoes(String linha, String [] guardaVar,double [] guardaValores,int linhasGuardaVar){
 
 		String aux = "vazio", antesigual, atribui = "vazio";
 		double res, auxiliar, auxiliar2, auxiliar3;
 		char operador = 0;
 		int cont_atribui = 1, atribu = 0;
+		
 
-
-
-
-
-		antesigual = linha.substring(0, linha.indexOf("!"));
+		aux = linha.substring(0, linha.indexOf("!"));
+		//System.out.println(aux);
 		//possivel verificação de erro
 
 		//verifica o token e atribui ele ao operador
 		for(int i = 0; i < linha.length(); i++){
 			if(linha.charAt(i) == '+' || linha.charAt(i) == '-' || linha.charAt(i) == '*' || linha.charAt(i) == '/' || linha.charAt(i) == '%'){
 				operador = linha.charAt(i);
+
 			}
 			else if(linha.charAt(i) == '!'){
 				atribui = linha.substring(linha.indexOf("!")+1, linha.indexOf(":"));//string que recebe o que será atribuido
@@ -33,11 +32,20 @@ class Operacoes{
 			}
 
 		}
+
+		if(cont_atribui == 1 && atribu ==1){
+			double valor_atribuicao = antesToken (atribui, guardaVar, guardaValores, linhasGuardaVar);
+
+			valorAtual(valor_atribuicao, aux, guardaVar, guardaValores, linhasGuardaVar);
+
+			cont_atribui = 1;
+			atribu = 0;
+		}
 	}
 
 
 		//verifica os valores de antes do token
-		public double antesToken(String aux1, String [] guardaVar, double [] guardaValores, int linhasGuardaVar){
+		static public double antesToken(String aux1, String [] guardaVar, double [] guardaValores, int linhasGuardaVar){
 			double auxiliar = 0;
 			int i = 0;
 
@@ -55,7 +63,7 @@ class Operacoes{
 		} 
 
 		//verifica os valores depois do token
-		public double depoisToken(String aux2, String [] guardaVar, double [] guardaValores, int linhasGuardaVar){
+		static public double depoisToken(String aux2, String [] guardaVar, double [] guardaValores, int linhasGuardaVar){
 			double auxiliar = 0;
 			int i = 0;
 
@@ -72,7 +80,7 @@ class Operacoes{
 			return auxiliar;//retorna o valor após o =
 		}
 
-		public void valorAtual (double resultado, String aux, String [] guardaVar, double [] guardaValores, int linhasGuardaVar ){
+		static public void valorAtual (double resultado, String aux, String [] guardaVar, double [] guardaValores, int linhasGuardaVar ){
 			for (int i = 0; i<linhasGuardaVar; i++) {
 				if(guardaVar[i].equals(aux)){
 					guardaValores[i] = resultado;
@@ -82,7 +90,7 @@ class Operacoes{
 			}
 		}
 
-		public double Opera(char operando, String linha, String [] guardaVar, double [] guardaValores, int linhasGuardaVar){
+		static public double Opera(char operando, String linha, String [] guardaVar, double [] guardaValores, int linhasGuardaVar){
 			double result = 0;
 			String aux1 = linha.substring(linha.indexOf("!")+1, linha.indexOf(operando));
 			String aux2 = linha.substring(linha.indexOf(operando)+1, linha.indexOf(":"));
