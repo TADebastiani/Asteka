@@ -1,34 +1,39 @@
 class Variaveis{
 
-	private String variaveis[] = new String[2000];
-	private String valores[] = new String[2000];
-	int index; // possiveis classes filha não podem alterar
+	static private String variaveis[] = new String[2000];
+	static private String valores[] = new String[2000];
+	static int index;
 
 	// retorna o valor da variável no indice x
-	public String getVariavel(int x){
-		return this.valores[x];
+	static public String getVariavel(int x){
+		return valores[x];
+	}
+
+	// retorna o valor da variável com o nome recebido
+	static public String getVariavel(String variavel){
+		return valores[indiceVariavel(variavel)];
 	}
 
 	// guarda o nome da variavel e seu valor em dois vetores no mesmo indice
-	public void setVariavel(String variavel, String valor){
-		this.variaveis[index] = variavel;
-		this.valores[index] = valor;
-		this.index++;
+	static public void setVariavel(String variavel, String valor){
+		variaveis[index] = variavel;
+		valores[index] = valor;
+		index++;
 	}
 
 	// atribui um novo valor a variavel existente
-	public void setValor(int indice, String valor){
-		this.valores[indice] = valor;
+	static public void setValor(int indice, String valor){
+		valores[indice] = valor;
 	}
 
 	// imprime o nome da variavel e seu valor
-	public void imprimeVariavel(int index){
-		System.out.println("Variavel: " + this.variaveis[index]);
-		System.out.println("Valor: " + this.valores[index]);
+	static public void imprimeVariavel(int index){
+		System.out.println("Variavel: " + variaveis[index]);
+		System.out.println("Valor: " + valores[index]);
 	}
 
-	// procura no vetor de variaveis se existe a variavel recebida como parametro
-	public int procuraVariavel(String variavel){
+	// procura no vetor de variaveis a variavel recebida como parametro
+	static public int indiceVariavel(String variavel){
 		//	não pode ser substituido por <variaveis.indexOf()>
 		int ind = -1;
 		variavel = variavel.trim();
@@ -41,14 +46,13 @@ class Variaveis{
 		return ind;
 	}
 
+	//verifica se a variavel dada como parâmetro existe
+	static public boolean existeVariavel(String variavel){
 
-	public int existeVar(String variavel, int linha){
-
-		if (procuraVariavel(variavel) > -1){
-			return procuraVariavel(variavel);
+		if (indiceVariavel(variavel) > -1){
+			return true;
 		}else {
-			Erro.erro(2,linha);
-			return -1;
+			return false;
 		}
 	}
 }
