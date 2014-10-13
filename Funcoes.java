@@ -1,81 +1,88 @@
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 class Funcoes{
 	
-	private String auxVar, auxVal;
-	private Scanner sc;
-
-
-	public void decodLinha(String linha[], Variaveis var){
+	public void decodLinha(String linha[]){
+		String auxVar, auxVal;
+		Scanner sc;
 		int x;
 
-		for (int i=0; linha[i] != null; i++){		
-			sc = new Scanner(linha[i]);
+		for (int line=0; linha[line] != null; line++){
+			sc = new Scanner(linha[line]);
 
-			if (linha[i].startsWith("var")){
+			if (linha[line].startsWith("var")){
 				sc.next();
 				auxVar = sc.next().replaceAll(":",""); 
 
-				// System.out.println(auxVar);
-				
-				if (sc.hasNext("|")){
-					auxVal = linha[i].substring(linha[i].indexOf("|")+2, linha[i].indexOf(":"));
+				if (sc.hasNext("!")){
+					auxVal = linha[line].substring(linha[line].indexOf("!")+2, linha[line].indexOf(":"));
 					// System.out.println(auxVal);
-					var.setVariavel(auxVar, auxVal);
+					Variaveis.setVariavel(auxVar, auxVal);
 				}else {
-					var.setVariavel(auxVar, null);
+					Variaveis.setVariavel(auxVar, null);
 				}
 
-				//var.imprimeVariavel(i);
+				//Variaveis.imprimeVariavel(i);
 			}
 
-			else if(linha[i].startsWith("imprime")){
-				if (linha[i].contains("'")){ // se tiver ' é uma string
+			else if (linha[line].startsWith("imprime")){
+			
+				 imprime(linha[line], line);
+			}
 
-					// alterar para imprimir sem enter
-					System.out.println("imprimindo: " + linha[i].substring(linha[i].indexOf("'")+1, linha[i].indexOf("':")));
+			else if (linha[line].startsWith("leia")){
 
-				}else { // se não, é uma variavel
-					auxVar = linha[i].substring(linha[i].indexOf("e ")+2, linha[i].indexOf(":"));
-					x = var.procuraVariavel(auxVar);
-					
-					// verifica se a variavel existe, transformar em um metodo em Variaveis
-					if (x > -1){ 
-						System.out.println("imprimindo: " + var.getVariavel(x));
-					} else{
-						Erro.erro(2, i);
-					}
-				}
-
-				// imprime(linha[i], i);
+				leia(linha[line]);
 			}
 
 		}
 	}
 
-	// AINDA EM TESTE
-
-	/* public void imprime(String linha, int i){
-		 String aux;
-		 int x;
+	public void imprime(String linha, int i){
+		String aux;
+				
+		//se for só o comando imprime, iprime uma linha em branco
+		if (linha.equals("imprime:")){
+			System.out.println();
+		
 		// verifica se é uma frase ou uma variável
-		if (linha.contains("'")){ // se tiver ' é uma string
+		}else if (linha.contains("'")) { // se tiver ' é uma string
+			
+			// para imprimir na próxima linha dentro da frase
+			if (linha.contains("_")){
+				linha = linha.replaceAll("_","\n");
+			}
+					
+			// imprime o que estiver entre as aspas simples
+			System.out.print("imprimindo: " + linha.substring(linha.indexOf("'")+1, linha.indexOf("'",linha.indexOf("'")+2)));
 
-			// alterar para imprimir sem enter
-			System.out.printf("imprimindo: " + linha.substring(linha.indexOf("'")+1, linha.indexOf("':")));
 
 		}else { // se não, é uma variavel
 			
+			// "pega" a palavra entre o 'e' do imprime e do :
 			aux = linha.substring(linha.indexOf("e ")+2, linha.indexOf(":"));
-			x = Variaveis.procuraVariavel(auxVar);
-			
-			// verifica se a variavel existe, transformar em um metodo em Variaveis
-			if (x > -1){ 
-				System.out.println("imprimindo: " + Variaveis.getVariavel(x));
+						
+			// verifica se a variavel existe e imprime
+			if (Variaveis.existeVariavel(aux)){ 
+				System.out.println("imprimindo: " + Variaveis.getVariavel(aux));
 			} else{
 				Erro.erro(2, i);
 			}
 		}
-	} */
+	}
+
+	public void leia(String linha){
+		String auxVar, auxVal;
+		Scanner s = new Scanner(System.in);
+
+		auxVar = linha.substring(linha.indexOf("'")+1, linha.indexOf("'",linha.indexOf("'")+2));
+
+		auxVal = s.nextLine();
+
+		if (Variaveis.existeVariavel(auxVar)){ 
+				Variaveis.setValor(Variaveis.indiceVariavel(auxVar), auxVal);
+		}
+	}
 
 }
