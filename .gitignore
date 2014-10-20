@@ -1,5 +1,5 @@
 ## ignorar alguns arquivos desnecessarios ##
 
-*.ast
+
 *.txt
 *.class
