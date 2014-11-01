@@ -62,12 +62,12 @@ class Asteka {
 			System.out.println("-- IMPRIMINDO O VETOR LINHA --");
 			for (i=0; linha[i] != null; i++){
 				System.out.println(i + ": " + linha[i]);
-			}
+			}*/
 			System.out.print("\n -- IMPRIMINDO AS 5 PRIMEIRAS VARIAVEIS --\n");
 			for (i=0; i<5 ; i++){
 				Variaveis.imprimeVariavel(i);
 			}
-			*/
+			
 
 
         } catch (IOException e) {

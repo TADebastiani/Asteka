@@ -1,7 +1,9 @@
 class Erro extends java.lang.Throwable{
 	
 	public Erro(int e, int linha, String frase){
+		
 		System.out.println("Na linha: " + (linha+1));
+		
 	
 
 		switch(e){
@@ -15,6 +17,6 @@ class Erro extends java.lang.Throwable{
 				System.out.println("\tEsperado '"+frase+"'.");
 		}
 	
-		//System.exit(0);
+		
 	}
 }

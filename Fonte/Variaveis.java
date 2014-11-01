@@ -22,8 +22,8 @@ class Variaveis{
 	}
 
 	// atribui um novo valor a variavel existente
-	static public void setValor(int indice, String valor){
-		valores[indice] = valor;
+	static public void setValor(String variavel, String valor){
+		valores[indiceVariavel(variavel)] = valor;
 	}
 
 	// imprime o nome da variavel e seu valor

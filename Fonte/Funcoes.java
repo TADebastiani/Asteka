@@ -10,6 +10,7 @@ class Funcoes{
 		Scanner sc;
 		int x;
 		
+
 		for (int line=0; linha[line] != null; line++){
 			sc = new Scanner(linha[line]);
 
@@ -52,7 +53,14 @@ class Funcoes{
 
 				line = laco(linha, line);
 			}
+			
+			else if (linha[line].contains("!")){
+				auxVar = linha[line].substring(0, linha[line].indexOf("!"));
+				auxVal = linha[line].substring(linha[line].indexOf("!")+1, linha[line].indexOf(":"));
 
+				atribuicao(auxVar, auxVal, line);
+			}
+			
 		}
 	}
 
@@ -106,7 +114,7 @@ class Funcoes{
 		auxVal = s.nextLine();
 
 		if (Variaveis.existeVariavel(auxVar)){ 
-				Variaveis.setValor(Variaveis.indiceVariavel(auxVar), auxVal);
+				Variaveis.setValor(auxVar, auxVal);
 		}
 	}
 
@@ -198,7 +206,17 @@ class Funcoes{
 			}
 			throw new Erro(3, line, "endsenao:");
 		}
+	}
 
+	private void atribuicao(String var, String valor, int linha) throws Erro{
+		if(Variaveis.existeVariavel(var)){
+			if (valor.contains("+") || valor.contains("-") || valor.contains("*") || valor.contains("/") || valor.contains("%")){
+				valor = Operacoes.operaMat(valor, linha);
+			}
+			Variaveis.setValor(var, valor.trim());
+		}else{
+			throw new Erro(2, linha, var);
+		}
 	}
 
 
