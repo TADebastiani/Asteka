@@ -1,1 +1,4 @@
-imprime 'Olá Mundo!_':
+var carine:
+leia 'carine':
+imprime carine_:
+

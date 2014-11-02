@@ -1,0 +1,8 @@
+var a ! 1:
+
+laco[a < 3]
+	imprime a_:
+endlaco:
+
+imprime 'fim_':
+

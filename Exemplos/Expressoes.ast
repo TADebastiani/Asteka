@@ -1,0 +1,21 @@
+var a:
+var b:
+var c:
+var d:
+var e:
+
+a ! 2 * 3:
+
+b ! 3 / 1:
+
+c ! 4 - 2:
+
+d ! 6 + 2:
+
+e ! 8 % 2:
+
+imprime a_:
+imprime b_:
+imprime c_:
+imprime d_:
+imprime e_:

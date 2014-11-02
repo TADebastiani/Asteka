@@ -1,0 +1,17 @@
+var a:
+var arquivo ! teste:
+
+a ! 1:
+
+
+se [a $ 1]
+	imprime 'maior_':
+	se [a $ testando]
+		imprime 'igual a 3_':
+		imprime arquivo_:
+	endse:
+senao
+	imprime 'menor que 3_':
+	endsenao:
+	imprime 'saindo senao_':
+

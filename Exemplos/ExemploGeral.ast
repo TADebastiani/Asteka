@@ -1,0 +1,53 @@
+
+var linguagem ! Asteka:
+var agua:
+
+agua ! molhada:
+
+imprime agua_:
+imprime 'Ola Mundo_':
+imprime linguagem_:
+
+leia 'agua':
+
+imprime agua_:
+var abacate ! 2:
+abacate ! 1+2*3:
+imprime abacate_:
+se [false]
+	imprime 'entrou_':
+	se [true]
+		imprime 'dentro do if_':
+		imprime arquivo_:
+	endse:
+	se [false]
+		imprime 'primeiro if_':
+		se [true]
+			imprime 'segundo if_':
+			se [true]
+				imprime 'terceiro if_':
+			endse:
+		senao
+			imprime 'oi_':
+		endsenao:
+	endse:
+	imprime 'saindo_':
+senao
+	imprime 'entrou senao_':
+	se [false]
+		imprime 'ola_':
+	endse:
+	senao [false]
+		imprime 'xau_':
+	
+	senao
+		imprime 'abobrinha_':
+	endsenao:
+	imprime 'saindo senao_':
+endsenao:
+
+laco [false]
+	imprime 'laco_':
+endlaco:
+
+imprime 'fim_':
