@@ -6,25 +6,23 @@ class Funcoes{
 	Boolean	senao = false;
 
 	public void interpreta(String linha[], int totalLinhas) throws Erro{
-		String auxVar, auxVal;
-		Scanner sc;
-		int x;
+		String auxVar, auxVal = null;
+		int laco =0;
 		
 
 		for (int line=0; linha[line] != null; line++){
-			sc = new Scanner(linha[line]);
+			
 
 			if (linha[line].startsWith("var")){
-				sc.next();
-				auxVar = sc.next().replaceAll(":",""); 
-
-				if (sc.hasNext("!")){
-					auxVal = linha[line].substring(linha[line].indexOf("!")+2, linha[line].indexOf(":"));
-					
-					Variaveis.setVariavel(auxVar, auxVal);
-				}else {
-					Variaveis.setVariavel(auxVar, null);
+				
+				if (linha[line].contains("!")){
+					auxVar = linha[line].substring(linha[line].indexOf("var")+3, linha[line].indexOf("!")).trim();
+					auxVal = linha[line].substring(linha[line].indexOf("!")+2, linha[line].indexOf(":")).trim();
+				}else{
+					auxVar = linha[line].substring(linha[line].indexOf("var")+3, linha[line].indexOf(":")).trim();
 				}
+
+				declaracao(auxVar, auxVal, line);
 
 			}
 
@@ -77,11 +75,15 @@ class Funcoes{
 			
 			// para imprimir na próxima linha dentro da frase
 			if (linha.contains("_")){
-				linha = linha.replaceAll("_","\n");
+				linha = linha.replaceAll("_","");
+				novaLinha = true;
 			}
 					
 			// imprime o que estiver entre as aspas simples
-			System.out.print("imprimindo: " + linha.substring(linha.indexOf("'")+1, linha.indexOf("'",linha.indexOf("'")+1)));
+			System.out.print(linha.substring(linha.indexOf("'")+1, linha.indexOf("'",linha.indexOf("'")+1)));
+			if (novaLinha){
+				System.out.println();
+			}
 
 
 		}else { // se não, é uma variavel
@@ -94,13 +96,13 @@ class Funcoes{
 
 			// verifica se a variavel existe e imprime
 			if (Variaveis.existeVariavel(aux)){ 
-				System.out.print("imprimindo: " + Variaveis.getVariavel(aux));
+				System.out.print(Variaveis.getVariavel(aux));
 				if (novaLinha){
 					System.out.println();
 				}
 			} else{
 				throw new Erro(2, i,"");
-				//Erro.erro(2, i);
+				
 			}
 		}
 	}
@@ -119,11 +121,11 @@ class Funcoes{
 	}
 
 	public int se(String [] linha, int line) throws Erro{
-		Boolean expr;
+		String aux = linha[line].substring(linha[line].indexOf("[")+1, linha[line].indexOf("]")).trim();;
+		Boolean expr = Boolean.parseBoolean(Operacoes.identifica(aux, line));;
 		int countIf=0;
 		
-		expr = new Boolean(linha[line].substring(linha[line].indexOf("[")+1, linha[line].indexOf("]")).trim());
-		
+
 		if (expr){
 			return line;
 		}
@@ -152,11 +154,13 @@ class Funcoes{
 	}
 
 	public int senao(String [] linha, int line) throws Erro{
+		String aux;
 		Boolean expr = true;
 		int countElse = 0;
 		
 		if (linha[line].contains("[")){
-			expr = new Boolean(linha[line].substring(linha[line].indexOf("[")+1, linha[line].indexOf("]")).trim());
+			aux = linha[line].substring(linha[line].indexOf("[")+1, linha[line].indexOf("]")).trim();
+			expr = Boolean.parseBoolean(Operacoes.identifica(aux, line));
 		}
 
 		if (expr && senao){
@@ -183,16 +187,20 @@ class Funcoes{
 	}
 
 	public int laco(String [] linha, int line) throws Erro{
-		Boolean expr = new Boolean(linha[line].substring(linha[line].indexOf("[")+1, linha[line].indexOf("]")).trim());
+		String aux = linha[line].substring(linha[line].indexOf("[")+1, linha[line].indexOf("]")).trim();
+		Boolean expr = Boolean.parseBoolean(Operacoes.identifica(aux, line));
+		
 		int countWhile = 0;
 
 		if (expr){
+			
 			return line;
 
 		}else{
 			for (int i = line; linha[i] != null; i++){
 				if (linha[i].startsWith("laco")){
 					countWhile++;
+
 					
 				}
 				if (linha[i].equals("endlaco:")){
@@ -204,20 +212,34 @@ class Funcoes{
 					}
 				}
 			}
-			throw new Erro(3, line, "endsenao:");
+			throw new Erro(3, line, "endlaco:");
 		}
 	}
 
+	public int endlaco(String[] linha, int line) throws Erro{
+		return line;
+	}
+
 	private void atribuicao(String var, String valor, int linha) throws Erro{
-		if(Variaveis.existeVariavel(var)){
+		if(Variaveis.existeVariavel(var.trim())){
 			if (valor.contains("+") || valor.contains("-") || valor.contains("*") || valor.contains("/") || valor.contains("%")){
-				valor = Operacoes.operaMat(valor, linha);
+				valor = Operacoes.identifica(valor, linha);
 			}
 			Variaveis.setValor(var, valor.trim());
 		}else{
 			throw new Erro(2, linha, var);
 		}
 	}
+
+	private void declaracao(String var, String valor, int linha) throws Erro{
+		
+		if (valor.contains("+") || valor.contains("-") || valor.contains("*") || valor.contains("/") || valor.contains("%")){
+			valor = Operacoes.identifica(valor, linha);
+		}
+		Variaveis.setVariavel(var, valor.trim());
+		
+	}
+
 
 
 }
