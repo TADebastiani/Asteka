@@ -106,8 +106,8 @@ class Operacoes{
 		}
 
 		boolean result 	= false;
-		String valor1	= valores[0].trim();
-		String valor2 	= valores[1].trim();
+		Double valor1	= Double.parseDouble(valores[0].trim());
+		Double valor2 	= Double.parseDouble(valores[1].trim());
 		operador		= operadores[1].trim();
 		/*
 		switch (operador){
