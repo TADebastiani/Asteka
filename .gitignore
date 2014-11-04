@@ -3,3 +3,9 @@
 
 *.txt
 *.class
+##arquivos LaTeX##
+*.tex
+*.log
+*.fdb_latexmk
+*.aux
+
