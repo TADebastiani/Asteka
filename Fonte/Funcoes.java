@@ -15,14 +15,7 @@ class Funcoes{
 
 			if (linha[line].startsWith("var")){
 				
-				if (linha[line].contains("!")){
-					auxVar = linha[line].substring(linha[line].indexOf("var")+3, linha[line].indexOf("!")).trim();
-					auxVal = linha[line].substring(linha[line].indexOf("!")+2, linha[line].indexOf(":")).trim();
-				}else{
-					auxVar = linha[line].substring(linha[line].indexOf("var")+3, linha[line].indexOf(":")).trim();
-				}
-
-				declaracao(auxVar, auxVal, line);
+				declaracao(linha[line], line);
 
 			}
 
@@ -231,12 +224,24 @@ class Funcoes{
 		}
 	}
 
-	private void declaracao(String var, String valor, int linha) throws Erro{
-		
-		if (valor.contains("+") || valor.contains("-") || valor.contains("*") || valor.contains("/") || valor.contains("%")){
-			valor = Operacoes.identifica(valor, linha);
+	private void declaracao(String linha, int line) throws Erro{
+		String var, valor = null;
+
+		if (linha.contains("!")){
+			var = linha.substring(linha.indexOf("var")+3, linha.indexOf("!")).trim();
+			valor = linha.substring(linha.indexOf("!")+1, linha.indexOf(":")).trim();
+		}else{
+			var = linha.substring(linha.indexOf("var")+3, linha.indexOf(":")).trim();
 		}
-		Variaveis.setVariavel(var, valor.trim());
+
+		if (valor != null){
+			if (valor.contains("+") || valor.contains("-") || valor.contains("*") || valor.contains("/") || valor.contains("%")){
+				valor = Operacoes.identifica(valor, line);
+			}
+			Variaveis.setVariavel(var, valor.trim());
+		}else{
+			Variaveis.setVariavel(var, null);
+		}
 		
 	}
 

@@ -15,6 +15,10 @@ class Erro extends java.lang.Throwable{
 				break;
 			case 3:
 				System.out.println("\tEsperado '"+frase+"'.");
+				break;
+			case 4:
+				System.out.println("\tVariável '"+frase+"' não é numérica.");
+				break;
 		}
 	
 		

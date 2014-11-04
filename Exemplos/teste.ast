@@ -1,30 +1,30 @@
-var implementador ! Linguagem:
-var linguagem ! Asteka:
-var num ! 5:
-var oi:
 
+
+var linguagem ! Asteka:
+var agua:
+var num ! 5:
+agua ! molhada:
+
+imprime agua_:
 imprime 'Ola Mundo_':
-imprime implementador:
 imprime linguagem_:
 
-leia 'oi':
+leia 'agua':
 
+imprime agua_:
 var abacate ! 2:
 abacate ! 3-2*2:
-
-var abobrinha ! 2*num:
-
+var abobrinha ! 2*num+2:
 imprime abacate_:
-
-se [oi > 2]
+se [false]
 	imprime 'entrou_':
-	se [2 < 3+4]
+	se [true]
 		imprime 'dentro do if_':
-		imprime num_:
+		imprime arquivo_:
 	endse:
-	se [num % 5 $ 0]
+	se [false]
 		imprime 'primeiro if_':
-		se [ abacate      §   9]
+		se [true]
 			imprime 'segundo if_':
 			se [true]
 				imprime 'terceiro if_':
@@ -36,7 +36,7 @@ se [oi > 2]
 	imprime 'saindo_':
 senao
 	imprime 'entrou senao_':
-	se []
+	se [false]
 		imprime 'ola_':
 	endse:
 	senao [false]
@@ -48,7 +48,7 @@ senao
 	imprime 'saindo senao_':
 endsenao:
 
-laco [num < 5]
+laco [true]
 	imprime 'laco_':
 endlaco:
 

@@ -1,6 +1,8 @@
-var a:
-var b ! 2:
+var ba ! 2 +2:
+var ac:
 
-a ! azul:
-imprime a_:
-imprime b:
+imprime ba_:
+
+ac ! 1 + 2:
+
+imprime ac_:

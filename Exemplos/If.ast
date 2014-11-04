@@ -1,17 +1,20 @@
-var a:
-var arquivo ! teste:
+var arquivo ! asteka:
+imprime '2'_:
+var a: 
 
-a ! 1:
+a !1:
 
 
 se [a $ 1]
-	imprime 'maior_':
-	se [a $ testando]
-		imprime 'igual a 3_':
+	imprime 'teste_':
+	se [a < 3]
+		imprime 'menor que 3'_:
 		imprime arquivo_:
-	endse:
-senao
-	imprime 'menor que 3_':
+	senao
+		imprime 'maior que 3'_:
 	endsenao:
-	imprime 'saindo senao_':
+endse:
+
+imprime 'fim'_:
+
 
